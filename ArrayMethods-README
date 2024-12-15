@@ -2,41 +2,82 @@ Your goal is to create an array utility class called IntArrayMethods.java. You
 will be required to write several methods which are listed below. An autograder
 is provided for you to test your code.
 
-public static int arraySum(int[] a)
-  arraySum sums the values of the integers contained in the given array and
-  returns that value.
+public class IntArrayMethods {
 
-public static double arrayMean(int[] a)
-  arrayMean calculates the average of the values of the given array and returns
-  that value as a double
+ public static int arraySum(int[] a) {
+ int sum = 0;
+  for (int num : a) {
+  sum += num;
+ }
+ return sum;
+ }
 
-public static int arrayMin(int[] a)
-  arrayMin finds the minimum value that occurs in the array and returns that
-  value.
+ public static double arrayMean(int[] a) {
+  if (a.length == 0) return 0.0;
+ return (double) arraySum(a) / a.length;
+ }
 
-public static int arrayMax(int[] a)
-  arrayMax finds the maximum value that occurs in the array and returns that
-  value.
+public static int arrayMin(int[] a) {
+  if (a.length == 0) throw new IllegalArgumentException("Array cannot be empty.");
+ int min = a[0];
+  for (int num : a) {
+  if (num < min) {
+  min = num;
+ }
+  }
+ return min;
+  }
+ public static int arrayMax(int[] a) {
+ if (a.length == 0) throw new IllegalArgumentException("Array cannot be empty.");
+ int max = a[0];
+ for (int num : a) {
+  if (num > max) {
+  max = num;
+  }
+  }
+ return max;
+ }
 
-public static boolean[] arrayLocalMin(int[] a)
-  arrayLocalMin determines the locations of any local minimums in the array. A
-  local minimum is defined as a value that is strictly less than either of its
-  neighbors. arrayLocalMin returns an array of booleans where the value at
-  each index is true if the value in the original array is a local minimum and
-  false otherwise.
+ public static boolean[] arrayLocalMin(int[] a) {
+ boolean[] result = new boolean[a.length];
+  if (a.length < 3) return result;
+  for (int i = 1; i < a.length - 1; i++) {
+ if (a[i] < a[i - 1] && a[i] < a[i + 1]) {
+  result[i] = true;
+ }
+ }
+  return result;
+ }
 
-public static boolean[] arrayLocalMax(int[] a)
-  arrayLocalMax determines the locations of any local maximums in the array. A
-  local maximum is defined as a value that is strictly greater than either of its
-  neighbors. arrayLocalMax returns an array of booleans where the value at
-  each index is true if the value in the original array is a local maximum and
-  false otherwise.
+ public static boolean[] arrayLocalMax(int[] a) {
+ boolean[] result = new boolean[a.length];
+ if (a.length < 3) return result;
+ for (int i = 1; i < a.length - 1; i++) {
+ if (a[i] > a[i - 1] && a[i] > a[i + 1]) {
+ result[i] = true;
+ }
+ }
+ return result;
+  }
+ public static int arrayMode(int[] a) {
+ if (a.length == 0) throw new IllegalArgumentException("Array cannot be empty.");
+ java.util.Map<Integer, Integer> frequencyMap = new java.util.HashMap<>();
+  for (int num : a) {
+ frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+ }
+ int mode = a[0];
+ int maxCount = 0;
+ for (java.util.Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+ if (entry.getValue() > maxCount) {
+ mode = entry.getKey();
+ maxCount = entry.getValue();
+ }
+ }
+  return mode;
+    
 
-public static int arrayMode(int[] a)
-  arrayMode finds the mode of the array. If multiple modes occur, then arrayMode
-  returns the value of the first mode that occurs in the array.
-
-public static int arrayCount(int[] a, int b)
+public static int arrayCount(int[] a, int b){
+}
   arrayCount determines the number of occurences of the parameter b in the array
   and returns that value.
 
